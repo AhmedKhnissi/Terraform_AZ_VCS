@@ -1,0 +1,7 @@
+subscription_id = "00000000-0000-0000-0000-000000000000"
+location        = "francecentral"
+project         = "azdevsecops"
+environment     = "dev"
+region_short    = "frc"
+instance        = "001"
+owner           = "ahmed"

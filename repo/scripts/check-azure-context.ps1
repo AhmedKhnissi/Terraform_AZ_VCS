@@ -6,3 +6,7 @@ az account show --query "{name:name, id:id, tenantId:tenantId, user:user.name}" 
 
 Write-Host "`n=== Current Azure CLI Version ===" -ForegroundColor Cyan
 az version --output table
+
+
+#New-Item -ItemType Directory -Force infra/envs/dev     creation dossier  
+#New-Item -ItemType Directory -Force infra/modules/resource-group  creation dossier
