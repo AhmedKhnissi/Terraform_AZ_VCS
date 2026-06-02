@@ -1,0 +1,10 @@
+subscription_id = "00000000-0000-0000-0000-000000000000"
+tenant_id       = "00000000-0000-0000-0000-000000000000"
+client_id       = "00000000-0000-0000-0000-000000000000"
+client_secret   = "do-not-commit-real-secret"
+
+location = "francecentral"
+
+managed_image_resource_group_name = "rg-azdevsecops-images-dev-frc-001"
+managed_image_name                = "img-azdevsecops-ops-ubuntu-001"
+vm_size                           = "Standard_B1s"

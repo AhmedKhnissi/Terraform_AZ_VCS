@@ -1,0 +1,8 @@
+---
+- name: Configure Azure DevSecOps ops image
+  hosts: all # appliquer ce playbook à tous les hosts de l’inventaire.
+  become: true
+
+  roles:
+    - ops_tools
+    - ssh_hardening

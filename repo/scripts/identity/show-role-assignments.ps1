@@ -15,4 +15,4 @@ foreach ($group in $groups) {
     --all `
     --query "[].{role:roleDefinitionName, scope:scope}" `
     -o table
-}
+}   

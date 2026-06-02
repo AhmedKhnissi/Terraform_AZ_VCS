@@ -1,0 +1,40 @@
+---
+- name: Disable SSH password authentication
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+    validate: 'sshd -t -f %s'
+  notify: Restart ssh
+  #ignore_errors: true
+
+- name: Disable root SSH login
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PermitRootLogin'
+    line: 'PermitRootLogin no'
+    validate: 'sshd -t -f %s'
+  notify: Restart ssh
+  #ignore_errors: true
+
+- name: Ensure fail2ban service is enabled # Fail2ban est un service analysant en temps réel les journaux d'évènement de divers services (SSH, Apache, FTP, entre autres) à la recherche de comportements malveillants
+  ansible.builtin.service:
+    name: fail2ban
+    enabled: true
+    state: started
+
+- name: Enable auditd service # auditd sert à l’audit système : événements sécurité, accès, actions sensibles
+  ansible.builtin.service:
+    name: auditd
+    enabled: true
+    state: started
+
+- name: Allow SSH through UFW # On autorise le profil UFW nommé OpenSSH
+  community.general.ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+    policy: deny

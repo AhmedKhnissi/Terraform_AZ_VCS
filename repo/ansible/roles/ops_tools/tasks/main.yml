@@ -1,0 +1,77 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt: # apt sert à gérer des paquets Debian/Ubuntu avec APT.
+    update_cache: true
+    cache_valid_time: 3600 # Si le cache a été mis à jour il y a moins de 3600 secondes, soit 1 heure, Ansible ne refait pas forcément l’update.
+
+- name: Install base packages # Cette task installe une liste de paquets Linux.
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+      - apt-transport-https
+      - software-properties-common
+      - unzip
+      - git
+      - jq    # manipuler JSON
+      - python3
+      - python3-pip
+      - python3-venv
+      - net-tools
+      - dnsutils
+      - traceroute
+      - tmux
+      - htop
+      - vim
+      - fail2ban
+      - auditd
+      - ufw
+    state: present   # Ça veut dire : les paquets doivent être installés
+
+- name: Install Python DevOps packages # Cette task installe des bibliothèques Python avec pip
+  ansible.builtin.pip: # sert à installer des paquets Python.
+    name:
+      - requests # appels HTTP en Python
+      - pyyaml # lecture/écriture YAML
+      - kubernetes # SDK Kubernetes Python
+      - azure-identity # authentification Azure Python
+      - azure-mgmt-resource # gestion des ressources Azure via SDK Python
+    executable: pip3 
+
+- name: Install Terraform
+  ansible.builtin.unarchive:
+    src: https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: true
+    mode: "0755"
+
+- name: Install Packer
+  ansible.builtin.unarchive:
+    src: https://releases.hashicorp.com/packer/1.11.2/packer_1.11.2_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: true # Ça veut dire que src est une URL distante ou un fichier déjà présent sur la machine cible.
+    mode: "0755"
+
+- name: Install kubectl
+  ansible.builtin.get_url:
+    url: https://dl.k8s.io/release/v1.31.2/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl
+    mode: "0755"
+
+- name: Install Helm
+  ansible.builtin.shell: |
+    set -e    
+    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+  args:
+    creates: /usr/local/bin/helm
+
+- name: Install Azure CLI
+  ansible.builtin.shell: |
+    set -e
+    curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+  args:
+    creates: /usr/bin/az
+
+# pour set -e # Si une commande échoue, le script s’arrête.

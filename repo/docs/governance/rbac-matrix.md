@@ -37,3 +37,35 @@ Définir les rôles nécessaires pour séparer les responsabilités Cloud, DevOp
 ## Décision
 
 Le projet utilisera Microsoft Entra ID pour l’authentification AKS et Kubernetes RBAC pour les permissions dans le cluster.
+
+
+## Azure RBAC
+
+| Scope | Principal | Role | Justification |
+|---|---|---|---|
+| Subscription | grp-azdevsecops-platform-admins | Reader | Voir le contexte global sans gérer toute la subscription |
+| RG core | grp-azdevsecops-platform-admins | Contributor | Gérer les ressources du lab |
+| RG core | grp-azdevsecops-readers | Reader | Audit et lecture seule |
+| ACR | app-azdevsecops-github-actions-dev | AcrPush | Push des images CI/CD |
+| ACR | AKS kubelet identity | AcrPull | Pull des images par les nodes AKS |
+| Key Vault | AKS workload identity | Key Vault Secrets User | Lire les secrets applicatifs |
+| AKS | grp-azdevsecops-developers | Azure Kubernetes Service Cluster User Role | Connexion utilisateur au cluster |
+
+## Kubernetes RBAC cible
+
+| Namespace | Groupe | Accès |
+|---|---|---|
+| platform | grp-azdevsecops-platform-admins | admin |
+| apps | grp-azdevsecops-developers | edit |
+| apps | grp-azdevsecops-readers | view |
+| security | grp-azdevsecops-security | view |
+| observability | grp-azdevsecops-security | view |
+| observability | grp-azdevsecops-platform-admins | admin |
+
+## Principes
+
+- Pas d’attribution directe aux utilisateurs sauf exception.
+- Attribution aux groupes Entra.
+- Scope minimal.
+- Séparation infra, applicatif et sécurité.
+- OIDC préféré aux secrets.
