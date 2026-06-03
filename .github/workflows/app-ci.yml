@@ -58,8 +58,9 @@ jobs:
           pip install -r repo/app/requirements.txt
 
       - name: Run tests
+        working-directory: repo/app
         run: |
-          pytest repo/app/tests
+          pytest tests
 
       - name: Lint Helm chart
         run: |
