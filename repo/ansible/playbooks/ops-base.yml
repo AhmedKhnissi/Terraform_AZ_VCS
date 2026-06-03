@@ -1,7 +1,7 @@
 ---
 - name: Configure Azure DevSecOps ops image
   hosts: all # appliquer ce playbook à tous les hosts de l’inventaire.
-  become: true
+  become: true #Ça demande à Ansible d’exécuter les tâches avec élévation de privilèges Même si tu as déjà become = True dans ansible.cfg, le mettre ici rend le playbook clair et autonome.
 
   roles:
     - ops_tools
