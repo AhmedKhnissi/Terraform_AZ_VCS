@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: azdevsecops-app-api
+  labels:
+    app: azdevsecops-app
+    component: api
+spec:
+  type: {{ .Values.api.service.type }}
+  selector:
+    app: azdevsecops-app
+    component: api
+  ports:
+    - name: http
+      port: {{ .Values.api.service.port }}
+      targetPort: {{ .Values.api.containerPort }}

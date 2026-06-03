@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azdevsecops-app-worker
+  labels:
+    app: azdevsecops-app
+    component: worker
+spec:
+  replicas: {{ .Values.worker.replicaCount }}
+  selector:
+    matchLabels:
+      app: azdevsecops-app
+      component: worker
+  template:
+    metadata:
+      labels:
+        app: azdevsecops-app
+        component: worker
+    spec:
+      containers:
+        - name: worker
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["python"]
+          args: ["-m", "worker.worker"]
+          env:
+            - name: APP_NAME
+              value: {{ .Values.config.appName | quote }}
+            - name: APP_ENV
+              value: {{ .Values.config.appEnv | quote }}
+            - name: APP_VERSION
+              value: {{ .Values.image.tag | quote }}
+              

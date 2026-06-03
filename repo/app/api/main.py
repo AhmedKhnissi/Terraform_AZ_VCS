@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.shared.config import APP_NAME, APP_ENV, APP_VERSION, STORAGE_MODE
+from shared.config import APP_NAME, APP_ENV, APP_VERSION, STORAGE_MODE
 
 
 app = FastAPI(

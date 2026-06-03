@@ -1,5 +1,5 @@
 import time
-from app.shared.config import APP_NAME, APP_ENV, APP_VERSION
+from shared.config import APP_NAME, APP_ENV, APP_VERSION
 
 
 def run_worker():
