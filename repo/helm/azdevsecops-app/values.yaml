@@ -1,0 +1,37 @@
+image:
+  repository: azdevsecopsdev001.azurecr.io/azdevsecops/app
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+api:
+  replicaCount: 1
+  containerPort: 8000
+  service:
+    type: ClusterIP
+    port: 80
+
+worker:
+  replicaCount: 1
+
+config:
+  appName: azdevsecops-app
+  appEnv: dev
+  storageMode: local
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 100
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+
+keyVault:
+  enabled: false
+  secretProviderClassName: azdevsecops-kv-secrets

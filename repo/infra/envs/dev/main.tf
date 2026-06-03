@@ -7,12 +7,12 @@ module "rg_core" {
 }
 
 module "acr" {
-  source = "../../modules/acr"
+  count = var.enable_acr ? 1 : 0
 
+  source              = "../../modules/acr"
   name                = "azdevsecopsdev001"
   resource_group_name = module.rg_core.name
   location            = var.location
   sku                 = "Basic"
-  admin_enabled       = false
   tags                = local.common_tags
 }

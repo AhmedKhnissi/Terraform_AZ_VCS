@@ -11,10 +11,10 @@ output "resource_group_id" {
 
 output "acr_name" {
   description = "Azure Container Registry name."
-  value       = module.acr.name
+  value       = var.enable_acr ? module.acr[0].name : null
 }
 
 output "acr_login_server" {
   description = "Azure Container Registry login server."
-  value       = module.acr.login_server
+  value       = var.enable_acr ? module.acr[0].login_server : null
 }

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: azdevsecops-app
+description: Helm chart for Azure DevSecOps demo API and worker
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

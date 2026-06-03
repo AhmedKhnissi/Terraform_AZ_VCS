@@ -39,3 +39,9 @@ variable "owner" {
   type        = string
   default     = "ahmed"
 }
+
+variable "enable_acr" {
+  description = "Enable Azure Container Registry creation. Disabled because Azure for Students policy blocks ACR creation."
+  type        = bool
+  default     = false
+}
