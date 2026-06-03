@@ -24,7 +24,8 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ahmedkhnissi/azdevsecops-app
+  IMAGE_OWNER: ahmedkhnissi
+  IMAGE_NAME: azdevsecops-app
   CHART_NAME: azdevsecops-app
   CHART_PATH: repo/helm/azdevsecops-app
 
