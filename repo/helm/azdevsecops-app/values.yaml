@@ -1,5 +1,5 @@
 image:
-  repository: azdevsecopsdev001.azurecr.io/azdevsecops/app
+  repository: ghcr.io/AhmedKhnissi/azdevsecops-app
   tag: "0.1.0"
   pullPolicy: IfNotPresent
 
